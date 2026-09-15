@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+package-lock.json
+next-env.d.ts
+*.tsbuildinfo
+
+# Preserve the supplied requirements verbatim.
+NEXO_ONE_PRD.md
+docs/PRD.md

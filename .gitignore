@@ -1,0 +1,25 @@
+# Dependencies and package manager caches
+/node_modules/
+/.npm/
+/.pnpm-store/
+
+# Build output and generated types
+/.next/
+/out/
+/build/
+/dist/
+/coverage/
+next-env.d.ts
+*.tsbuildinfo
+
+# Local configuration and credentials
+.env*
+!.env.example
+*.pem
+/.vercel/
+
+# Logs and operating system files
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
