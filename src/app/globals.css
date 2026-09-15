@@ -1,2 +1,242 @@
 @import "tailwindcss";
-@import "lenis/dist/lenis.css";
+
+/* =========================================================
+   NEXO ONE — Global Design Foundation
+   ========================================================= */
+
+:root {
+  /* Core palette */
+  --nexo-black: #050505;
+  --nexo-black-soft: #0d0d0d;
+
+  --nexo-white: #f5f5f2;
+  --nexo-white-pure: #ffffff;
+
+  --nexo-gray-100: #e7e7e2;
+  --nexo-gray-300: #b6b6b0;
+  --nexo-gray-500: #767672;
+  --nexo-gray-700: #2a2a28;
+
+  /* Surfaces */
+  --background: var(--nexo-black);
+  --foreground: var(--nexo-white);
+  --surface: var(--nexo-black-soft);
+  --border: rgba(255, 255, 255, 0.14);
+
+  /* Layout */
+  --page-padding: clamp(1rem, 3vw, 3rem);
+  --section-space: clamp(5rem, 10vw, 10rem);
+  --content-max-width: 1600px;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-full: 999px;
+
+  /* Motion */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --duration-fast: 220ms;
+  --duration-medium: 500ms;
+  --duration-slow: 900ms;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-nexo-black: var(--nexo-black);
+  --color-nexo-white: var(--nexo-white);
+
+  --ease-premium: var(--ease-premium);
+  --ease-smooth: var(--ease-smooth);
+}
+
+/* =========================================================
+   Base Reset
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   Selection
+   ========================================================= */
+
+::selection {
+  background: var(--nexo-white);
+  color: var(--nexo-black);
+}
+
+/* =========================================================
+   Shared Layout Utilities
+   ========================================================= */
+
+.nexo-container {
+  width: min(calc(100% - (var(--page-padding) * 2)), var(--content-max-width));
+  margin-inline: auto;
+}
+
+.nexo-section {
+  position: relative;
+  width: 100%;
+  padding-block: var(--section-space);
+}
+
+/* =========================================================
+   Typography System
+   ========================================================= */
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+.text-display-xl {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(5rem, 14vw, 14rem);
+  font-weight: 400;
+  line-height: 0.78;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.text-display-lg {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(4rem, 10vw, 10rem);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+.text-display-md {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 400;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.text-heading {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.text-subheading {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.text-body-lg {
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.text-small {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+.text-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.text-muted {
+  color: var(--nexo-gray-300);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* =========================================================
+   Accessibility
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--nexo-white);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,16 +1,16 @@
-"use client";
-
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-let registered = false;
+let isRegistered = false;
 
-/** Call from a client effect before creating a scoped GSAP context. */
-export function registerGsapPlugins() {
-  if (typeof window !== "undefined" && !registered) {
+export function getGsap() {
+  if (typeof window !== "undefined" && !isRegistered) {
     gsap.registerPlugin(ScrollTrigger);
-    registered = true;
+    isRegistered = true;
   }
-}
 
-export { gsap, ScrollTrigger };
+  return {
+    gsap,
+    ScrollTrigger,
+  };
+}

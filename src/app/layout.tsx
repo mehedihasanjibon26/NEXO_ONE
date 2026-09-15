@@ -1,20 +1,41 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { Bebas_Neue, Geist } from "next/font/google";
+import "lenis/dist/lenis.css";
+
+import { ProductExperienceProvider } from "@/components/layout/ProductExperienceProvider";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 import "./globals.css";
 
+const geist = Geist({
+  variable: "--font-body",
+  subsets: ["latin"],
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
-  title: "NEXO ONE - Built for Motion",
+  title: "NEXO ONE — Built for Motion",
   description:
-    "A frontend concept showcase for the fictional NEXO ONE sneaker.",
+    "A cinematic premium sneaker experience exploring design, performance, and motion.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${geist.variable} ${bebasNeue.variable}`}>
+        <ProductExperienceProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </ProductExperienceProvider>
+      </body>
     </html>
   );
 }
