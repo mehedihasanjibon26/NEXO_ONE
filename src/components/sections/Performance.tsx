@@ -18,37 +18,37 @@ export function Performance() {
   const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useLayoutEffect(() => {
-    if (
-      !sectionRef.current ||
-      !introRef.current ||
-      !titleRef.current ||
-      !copyRef.current ||
-      !closingRef.current
-    ) {
+    const section = sectionRef.current;
+    const intro = introRef.current;
+    const title = titleRef.current;
+    const copy = copyRef.current;
+    const closing = closingRef.current;
+
+    if (!section || !intro || !title || !copy || !closing) {
       return;
     }
 
     const { gsap } = getGsap();
 
     const context = gsap.context(() => {
-      gsap.set(introRef.current, {
+      gsap.set(intro, {
         opacity: 0,
         y: 50,
       });
 
-      gsap.set(titleRef.current, {
+      gsap.set(title, {
         opacity: 0,
         yPercent: 35,
       });
 
-      gsap.set(copyRef.current.children, {
+      gsap.set(copy.children, {
         opacity: 0,
         y: 24,
       });
 
       const introTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           start: "top 82%",
           end: "top 32%",
           scrub: 0.9,
@@ -58,7 +58,7 @@ export function Performance() {
 
       introTimeline
         .to(
-          introRef.current,
+          intro,
           {
             opacity: 1,
             y: 0,
@@ -67,7 +67,7 @@ export function Performance() {
           0,
         )
         .to(
-          titleRef.current,
+          title,
           {
             opacity: 1,
             yPercent: 0,
@@ -76,7 +76,7 @@ export function Performance() {
           0.08,
         )
         .to(
-          copyRef.current.children,
+          copy.children,
           {
             opacity: 1,
             y: 0,
@@ -122,18 +122,19 @@ export function Performance() {
           },
         });
 
-        metricTimeline
-          .to(
-            metric,
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              ease: "none",
-            },
-            0,
-          )
-          .to(
+        metricTimeline.to(
+          metric,
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            ease: "none",
+          },
+          0,
+        );
+
+        if (value) {
+          metricTimeline.to(
             value,
             {
               xPercent: 0,
@@ -141,8 +142,11 @@ export function Performance() {
               ease: "none",
             },
             0.05,
-          )
-          .to(
+          );
+        }
+
+        if (line) {
+          metricTimeline.to(
             line,
             {
               scaleX: 1,
@@ -150,10 +154,11 @@ export function Performance() {
             },
             0.18,
           );
+        }
       });
 
       gsap.fromTo(
-        closingRef.current,
+        closing,
         {
           opacity: 0.15,
           y: 45,
@@ -165,7 +170,7 @@ export function Performance() {
           scale: 1,
           ease: "none",
           scrollTrigger: {
-            trigger: closingRef.current,
+            trigger: closing,
             start: "top 88%",
             end: "center 68%",
             scrub: 0.8,
@@ -173,7 +178,7 @@ export function Performance() {
           },
         },
       );
-    }, sectionRef);
+    }, section);
 
     return () => {
       context.revert();

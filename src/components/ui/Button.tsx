@@ -6,12 +6,17 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
+type NativeButtonProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+>;
+
 type ButtonProps = {
   children: ReactNode;
   href?: string;
   variant?: ButtonVariant;
   className?: string;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & NativeButtonProps;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
