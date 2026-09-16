@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "motion/react";
@@ -54,3 +54,4 @@ export function ProductVisual({
     </motion.div>
   );
 }
+

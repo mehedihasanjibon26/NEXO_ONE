@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
@@ -125,7 +125,7 @@ export function Navbar() {
                       </span>
 
                       <span className="text-sm text-white/40 transition-transform duration-500 group-hover:translate-x-2">
-                        ↗
+                        â†—
                       </span>
                     </Link>
                   </motion.div>
@@ -143,3 +143,4 @@ export function Navbar() {
     </>
   );
 }
+

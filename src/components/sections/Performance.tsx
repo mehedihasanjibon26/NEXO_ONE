@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useLayoutEffect, useRef } from "react";
 
@@ -319,3 +319,4 @@ export function Performance() {
     </section>
   );
 }
+

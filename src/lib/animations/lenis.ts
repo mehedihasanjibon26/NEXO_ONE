@@ -1,4 +1,4 @@
-import Lenis from "lenis";
+﻿import Lenis from "lenis";
 
 export function createLenis() {
   return new Lenis({
@@ -9,3 +9,4 @@ export function createLenis() {
     touchMultiplier: 1,
   });
 }
+

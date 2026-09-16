@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
@@ -192,7 +192,7 @@ export function ProductShowcase() {
                   className="relative z-10 aspect-[4/3] w-[120%] max-w-[58rem] will-change-transform lg:-ml-[8%]"
                 >
                   <Image
-                    src="/images/product/nexo-one-hero.png"
+                    src="/images/product/nexo-one-hero.webp"
                     alt="NEXO ONE premium performance sneaker"
                     fill
                     sizes="(max-width: 1024px) 95vw, 55vw"
@@ -271,3 +271,4 @@ export function ProductShowcase() {
     </section>
   );
 }
+

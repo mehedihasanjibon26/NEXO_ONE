@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 
 type ContainerProps = {
   children: ReactNode;
@@ -8,3 +8,4 @@ type ContainerProps = {
 export function Container({ children, className = "" }: ContainerProps) {
   return <div className={`nexo-container ${className}`.trim()}>{children}</div>;
 }
+

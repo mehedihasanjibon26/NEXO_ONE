@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useLayoutEffect, useRef } from "react";
 import { motion } from "motion/react";
@@ -18,7 +18,7 @@ const designDetails = [
     label: "Sculpted cushioning",
   },
   {
-    value: "360°",
+    value: "360Â°",
     label: "Adaptive traction",
   },
 ];
@@ -202,3 +202,4 @@ export function DesignStory() {
     </section>
   );
 }
+

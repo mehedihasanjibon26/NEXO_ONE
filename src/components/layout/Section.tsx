@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+﻿import type { ElementType, ReactNode } from "react";
 
 type SectionProps = {
   children: ReactNode;
@@ -19,3 +19,4 @@ export function Section({
     </Component>
   );
 }
+

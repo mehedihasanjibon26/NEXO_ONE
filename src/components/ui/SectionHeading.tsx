@@ -1,4 +1,4 @@
-type SectionHeadingProps = {
+﻿type SectionHeadingProps = {
   title: string;
   description?: string;
   align?: "left" | "center";
@@ -34,3 +34,4 @@ export function SectionHeading({
     </div>
   );
 }
+

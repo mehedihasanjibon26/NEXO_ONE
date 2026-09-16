@@ -1,4 +1,4 @@
-type SectionLabelProps = {
+﻿type SectionLabelProps = {
   children: string;
   className?: string;
 };
@@ -14,3 +14,4 @@ export function SectionLabel({ children, className = "" }: SectionLabelProps) {
     </div>
   );
 }
+

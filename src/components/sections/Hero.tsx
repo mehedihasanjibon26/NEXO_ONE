@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -14,7 +14,7 @@ const heroShoes = [
     id: "onyx-black",
     number: "01",
     name: "ONYX BLACK",
-    image: "/images/product/nexo-one-hero.png",
+    image: "/images/product/nexo-one-hero.webp",
     background: "#050505",
     foreground: "#F5F5F2",
     muted: "rgba(245,245,242,0.38)",
@@ -25,7 +25,7 @@ const heroShoes = [
     id: "chalk-white",
     number: "02",
     name: "CHALK WHITE",
-    image: "/images/product/nexo-one-chalk.png",
+    image: "/images/product/nexo-one-chalk.webp",
     background: "#DCD8CE",
     foreground: "#111111",
     muted: "rgba(17,17,17,0.42)",
@@ -36,7 +36,7 @@ const heroShoes = [
     id: "silver-mist",
     number: "03",
     name: "SILVER MIST",
-    image: "/images/product/nexo-one-silver.png",
+    image: "/images/product/nexo-one-silver.webp",
     background: "#9EA0A3",
     foreground: "#101010",
     muted: "rgba(16,16,16,0.45)",
@@ -47,7 +47,7 @@ const heroShoes = [
     id: "volt-red",
     number: "04",
     name: "VOLT RED",
-    image: "/images/product/nexo-one-volt.png",
+    image: "/images/product/nexo-one-volt.webp",
     background: "#991C1C",
     foreground: "#F8F5F0",
     muted: "rgba(248,245,240,0.48)",
@@ -435,7 +435,7 @@ export function Hero() {
               style={{ color: activeShoe.muted }}
             >
               Scroll to explore
-              <span className="text-base">↓</span>
+              <span className="text-base">â†“</span>
             </div>
           </div>
 
@@ -468,3 +468,4 @@ export function Hero() {
     </section>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
@@ -285,7 +285,7 @@ export function MaterialsExploded() {
                 className="absolute inset-0 will-change-transform"
               >
                 <Image
-                  src="/images/product/nexo-one-hero.png"
+                  src="/images/product/nexo-one-hero.webp"
                   alt="NEXO ONE material construction"
                   fill
                   sizes="(max-width: 768px) 76vw, (max-width: 1200px) 58vw, 820px"
@@ -305,7 +305,7 @@ export function MaterialsExploded() {
                   }}
                 >
                   <Image
-                    src="/images/product/nexo-one-hero.png"
+                    src="/images/product/nexo-one-hero.webp"
                     alt=""
                     aria-hidden="true"
                     fill
@@ -426,3 +426,4 @@ function MaterialCallout({
     </div>
   );
 }
+

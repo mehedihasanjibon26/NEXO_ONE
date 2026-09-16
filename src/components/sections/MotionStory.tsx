@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
@@ -190,7 +190,7 @@ export function MotionStory() {
               className="relative z-20 aspect-[4/3] w-[88vw] max-w-[64rem] will-change-transform md:w-[68vw] lg:w-[58vw]"
             >
               <Image
-                src="/images/product/nexo-one-hero.png"
+                src="/images/product/nexo-one-hero.webp"
                 alt="NEXO ONE sneaker in motion"
                 fill
                 sizes="(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 950px"
@@ -237,3 +237,4 @@ export function MotionStory() {
     </section>
   );
 }
+

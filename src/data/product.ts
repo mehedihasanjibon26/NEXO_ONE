@@ -1,4 +1,4 @@
-import type { Product } from "@/types/product";
+﻿import type { Product } from "@/types/product";
 
 export const nexoOne: Product = {
   id: "nexo-one",
@@ -16,7 +16,7 @@ export const nexoOne: Product = {
       label: "ONYX",
       hex: "#111111",
       textColor: "#F5F5F2",
-      image: "/images/product/nexo-one-onyx.png",
+      image: "/images/product/nexo-one-onyx.webp",
     },
     {
       id: "chalk-white",
@@ -24,7 +24,7 @@ export const nexoOne: Product = {
       label: "CHALK",
       hex: "#E8E6DF",
       textColor: "#111111",
-      image: "/images/product/nexo-one-chalk.png",
+      image: "/images/product/nexo-one-chalk.webp",
     },
     {
       id: "silver-mist",
@@ -32,7 +32,7 @@ export const nexoOne: Product = {
       label: "SILVER",
       hex: "#A9AAAD",
       textColor: "#111111",
-      image: "/images/product/nexo-one-silver.png",
+      image: "/images/product/nexo-one-silver.webp",
     },
     {
       id: "volt-red",
@@ -40,7 +40,7 @@ export const nexoOne: Product = {
       label: "VOLT",
       hex: "#D42922",
       textColor: "#FFFFFF",
-      image: "/images/product/nexo-one-volt.png",
+      image: "/images/product/nexo-one-volt.webp",
     },
   ],
 
@@ -64,7 +64,7 @@ export const nexoOne: Product = {
       title: "Adaptive Traction",
       description:
         "Segmented outsole geometry designed to provide confident grip across everyday urban movement.",
-      value: "360°",
+      value: "360Â°",
     },
     {
       id: "comfort",
@@ -117,3 +117,4 @@ export const nexoOne: Product = {
 };
 
 export const defaultColorway = nexoOne.colorways[0];
+

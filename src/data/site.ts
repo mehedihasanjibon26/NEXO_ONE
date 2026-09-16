@@ -1,4 +1,4 @@
-export const siteConfig = {
+﻿export const siteConfig = {
   brand: {
     name: "NEXO",
     product: "NEXO ONE",
@@ -6,7 +6,7 @@ export const siteConfig = {
   },
 
   metadata: {
-    title: "NEXO ONE — Built for Motion",
+    title: "NEXO ONE â€” Built for Motion",
     description:
       "A cinematic premium sneaker experience exploring design, performance, and motion.",
   },
@@ -51,3 +51,4 @@ export const siteConfig = {
 } as const;
 
 export type SiteConfig = typeof siteConfig;
+

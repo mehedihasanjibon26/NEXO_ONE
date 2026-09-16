@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Bebas_Neue, Geist } from "next/font/google";
 import "lenis/dist/lenis.css";
 
@@ -30,8 +30,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+  const heroImage = `${basePath}/images/product/nexo-one-hero.webp`;
+
   return (
     <html lang="en" className={`${geist.variable} ${bebasNeue.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href={heroImage}
+          type="image/webp"
+          fetchPriority="high"
+        />
+      </head>
+
       <body>
         <ProductExperienceProvider>
           <CustomCursor />
