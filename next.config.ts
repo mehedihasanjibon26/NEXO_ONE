@@ -1,5 +1,20 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {};
+const isProd = process.env.NODE_ENV === "production";
+
+const repoName = "NEXO_ONE";
+
+const nextConfig: NextConfig = {
+  output: "export",
+
+  images: {
+    unoptimized: true,
+  },
+
+  basePath: isProd ? `/${repoName}` : "",
+  assetPrefix: isProd ? `/${repoName}/` : "",
+
+  trailingSlash: true,
+};
 
 export default nextConfig;
