@@ -7,70 +7,53 @@ import { Container } from "@/components/layout/Container";
 import { nexoOne } from "@/data/product";
 import { getGsap } from "@/lib/animations/gsap";
 
+/*
+ * 4 equal non-overlapping slices
+ * final vertical spacing remains equal:
+ * -21, -7, +7, +21  => 14px equal gaps
+ *
+ * To make the split movement prettier,
+ * each layer now also has:
+ * - a tiny horizontal drift
+ * - a tiny scale settle
+ * - a small stagger in timing
+ */
 const layers = [
   {
     id: "upper",
-    clipPath: "inset(0% 0% 52% 0%)",
-    y: -105,
+    clipPath: "inset(0% 0% 75% 0%)",
+    offsetY: -21,
+    offsetX: -8,
+    scale: 1.01,
   },
   {
     id: "lining",
-    clipPath: "inset(34% 0% 43% 0%)",
-    y: -38,
+    clipPath: "inset(25% 0% 50% 0%)",
+    offsetY: -7,
+    offsetX: 6,
+    scale: 1.006,
   },
   {
     id: "midsole",
-    clipPath: "inset(55% 0% 20% 0%)",
-    y: 42,
+    clipPath: "inset(50% 0% 25% 0%)",
+    offsetY: 7,
+    offsetX: -6,
+    scale: 1.006,
   },
   {
     id: "outsole",
-    clipPath: "inset(73% 0% 0% 0%)",
-    y: 112,
+    clipPath: "inset(75% 0% 0% 0%)",
+    offsetY: 21,
+    offsetX: 8,
+    scale: 1.01,
   },
-] as const;
-
-const callouts = [
-  {
-    number: "01",
-    eyebrow: "UPPER",
-    className: "left-4 top-[25%] md:left-[4%] md:top-[27%] lg:left-[7%]",
-    enterX: -60,
-    enterY: 0,
-    align: "left",
-  },
-  {
-    number: "02",
-    eyebrow: "LINING",
-    className: "right-4 top-[25%] md:right-[4%] md:top-[27%] lg:right-[7%]",
-    enterX: 60,
-    enterY: 0,
-    align: "right",
-  },
-  {
-    number: "03",
-    eyebrow: "MIDSOLE",
-    className: "left-4 bottom-[17%] md:left-[4%] md:bottom-[18%] lg:left-[7%]",
-    enterX: -60,
-    enterY: 20,
-    align: "left",
-  },
-  {
-    number: "04",
-    eyebrow: "OUTSOLE",
-    className:
-      "right-4 bottom-[17%] md:right-[4%] md:bottom-[18%] lg:right-[7%]",
-    enterX: 60,
-    enterY: 20,
-    align: "right",
-  },
-] as const;
+];
 
 export function MaterialsExploded() {
   const sectionRef = useRef<HTMLElement>(null);
   const curtainRef = useRef<HTMLDivElement>(null);
-  const shoeRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  const fullShoeRef = useRef<HTMLDivElement>(null);
 
   const layerRefs = useRef<Array<HTMLDivElement | null>>([]);
   const calloutRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -79,8 +62,8 @@ export function MaterialsExploded() {
     if (
       !sectionRef.current ||
       !curtainRef.current ||
-      !shoeRef.current ||
-      !headingRef.current
+      !introRef.current ||
+      !fullShoeRef.current
     ) {
       return;
     }
@@ -88,115 +71,167 @@ export function MaterialsExploded() {
     const { gsap } = getGsap();
 
     const context = gsap.context(() => {
-      const validLayers = layerRefs.current.filter(Boolean);
-      const validCallouts = calloutRefs.current.filter(Boolean);
+      const validLayers = layerRefs.current.filter(
+        (item): item is HTMLDivElement => Boolean(item),
+      );
 
-      gsap.set(curtainRef.current, {
-        scaleY: 1,
-        transformOrigin: "top center",
-      });
-
-      gsap.set(shoeRef.current, {
-        scale: 0.94,
-        opacity: 0.35,
-      });
+      const validCallouts = calloutRefs.current.filter(
+        (item): item is HTMLDivElement => Boolean(item),
+      );
 
       gsap.set(validLayers, {
+        opacity: 0,
+        x: 0,
         y: 0,
+        scale: 1,
+        filter: "blur(0px)",
       });
 
       gsap.set(validCallouts, {
         opacity: 0,
-        scale: 0.94,
-      });
-
-      callouts.forEach((callout, index) => {
-        gsap.set(calloutRefs.current[index], {
-          x: callout.enterX,
-          y: callout.enterY,
-        });
+        y: 16,
       });
 
       const entranceTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",
-          end: "top 20%",
+          end: "top 25%",
           scrub: 0.85,
           invalidateOnRefresh: true,
         },
       });
 
       entranceTimeline
-        .to(
+        .fromTo(
           curtainRef.current,
+          {
+            scaleY: 1,
+            transformOrigin: "top",
+          },
           {
             scaleY: 0,
             ease: "none",
           },
           0,
         )
-        .to(
-          shoeRef.current,
+        .fromTo(
+          introRef.current,
           {
-            scale: 1,
+            opacity: 0,
+            y: 30,
+          },
+          {
             opacity: 1,
+            y: 0,
             ease: "none",
           },
-          0.18,
-        );
-
-      const deconstructTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      deconstructTimeline
-        .to(
-          headingRef.current,
-          {
-            opacity: 0.18,
-            y: -35,
-            ease: "none",
-          },
-          0.08,
+          0.15,
         )
-        .to(
-          shoeRef.current,
+        .fromTo(
+          fullShoeRef.current,
           {
-            scale: 1.06,
+            opacity: 0.35,
+            scale: 0.96,
+            filter: "blur(4px)",
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
             ease: "none",
           },
           0.12,
         );
 
+      const splitTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // small hold on intact shoe
+      splitTimeline.to(
+        fullShoeRef.current,
+        {
+          scale: 1.01,
+          ease: "none",
+          duration: 0.34,
+        },
+        0,
+      );
+
+      // sliced copy becomes visible while aligned
+      splitTimeline.to(
+        validLayers,
+        {
+          opacity: 1,
+          ease: "none",
+          duration: 0.14,
+        },
+        0.34,
+      );
+
+      // intact shoe fades out gently
+      splitTimeline.to(
+        fullShoeRef.current,
+        {
+          opacity: 0,
+          scale: 1.015,
+          filter: "blur(3px)",
+          ease: "none",
+          duration: 0.24,
+        },
+        0.38,
+      );
+
+      // prettier split: small stagger + tiny x drift + micro scale settle
       layers.forEach((layer, index) => {
-        deconstructTimeline.to(
-          layerRefs.current[index],
+        const element = layerRefs.current[index];
+
+        if (!element) return;
+
+        splitTimeline.to(
+          element,
           {
-            y: layer.y,
+            x: layer.offsetX,
+            y: layer.offsetY,
+            scale: layer.scale,
+            filter: "blur(0px)",
             ease: "none",
+            duration: 0.34,
           },
-          0.25,
+          0.44 + index * 0.035,
+        );
+
+        splitTimeline.to(
+          element,
+          {
+            x: layer.offsetX * 0.92,
+            y: layer.offsetY,
+            scale: 1,
+            ease: "none",
+            duration: 0.26,
+          },
+          0.8 + index * 0.02,
         );
       });
 
-      callouts.forEach((callout, index) => {
-        deconstructTimeline.to(
-          calloutRefs.current[index],
+      // callouts appear after split settles
+      validCallouts.forEach((callout, index) => {
+        splitTimeline.to(
+          callout,
           {
             opacity: 1,
-            x: 0,
             y: 0,
-            scale: 1,
             ease: "none",
+            duration: 0.2,
           },
-          0.62 + index * 0.035,
+          0.88 + index * 0.025,
         );
       });
     }, sectionRef);
@@ -206,77 +241,58 @@ export function MaterialsExploded() {
     };
   }, []);
 
+  const materials = nexoOne.materials;
+
   return (
     <section
       ref={sectionRef}
-      id="materials"
-      className="relative h-[220vh] bg-[#f1f0eb] text-black"
+      id="technology"
+      className="relative h-[205vh] bg-[#f1f0eb] text-black"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Black transition curtain */}
         <div
           ref={curtainRef}
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-50 bg-black will-change-transform"
+          className="pointer-events-none absolute inset-0 z-50 bg-black"
         />
 
-        {/* Background atmosphere */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-        >
-          <div className="absolute top-1/2 left-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/[0.035] blur-[120px]" />
-
-          <div className="absolute inset-x-0 top-0 h-px bg-black/10" />
-
-          <div className="absolute inset-x-0 bottom-0 h-px bg-black/10" />
-        </div>
-
         <Container className="relative h-full">
-          {/* Heading */}
           <div
-            ref={headingRef}
-            className="absolute inset-x-0 top-20 z-20 flex items-start justify-between md:top-24"
+            ref={introRef}
+            className="absolute inset-x-0 top-[8%] z-30 flex items-start justify-between"
           >
             <div>
-              <div className="text-label text-black/35">MATERIALS / 004</div>
+              <div className="text-[0.58rem] tracking-[0.2em] text-black/35 uppercase">
+                MATERIAL SYSTEM / 004
+              </div>
 
-              <h2 className="font-display mt-4 text-[clamp(3.6rem,7vw,7rem)] leading-[0.82] uppercase">
+              <h2 className="font-display mt-4 text-[clamp(3.8rem,7vw,7.5rem)] leading-[0.82] uppercase">
                 Built layer
                 <br />
                 by layer.
               </h2>
             </div>
 
-            <div className="hidden max-w-[17rem] text-right text-sm leading-6 text-black/40 md:block">
-              Scroll to separate the construction of NEXO ONE and reveal the
+            <p className="hidden max-w-[17rem] text-right text-sm leading-6 text-black/40 md:block">
+              Scroll through the construction of NEXO ONE and reveal the
               technology behind each layer.
-            </div>
+            </p>
           </div>
 
-          {/* Center sneaker */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              ref={shoeRef}
-              className="relative aspect-[4/3] w-[88vw] max-w-[58rem] will-change-transform md:w-[68vw] lg:w-[55vw]"
-            >
+          <div className="absolute inset-0 z-20 flex items-center justify-center pt-[6vh]">
+            <div className="relative aspect-[4/3] w-[76vw] max-w-[52rem] md:w-[58vw] lg:w-[46vw]">
               <div
-                aria-hidden="true"
-                className="absolute top-[77%] left-1/2 h-[12%] w-[52%] -translate-x-1/2 rounded-[50%] bg-black/10 blur-3xl"
-              />
-
-              {/* Faint assembled silhouette */}
-              <div className="absolute inset-0 opacity-[0.055]">
+                ref={fullShoeRef}
+                className="absolute inset-0 will-change-transform"
+              >
                 <Image
                   src="/images/product/nexo-one-hero.png"
-                  alt=""
+                  alt="NEXO ONE material construction"
                   fill
-                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 900px"
+                  sizes="(max-width: 768px) 76vw, (max-width: 1200px) 58vw, 820px"
                   className="object-contain"
                 />
               </div>
 
-              {/* Split layers */}
               {layers.map((layer, index) => (
                 <div
                   key={layer.id}
@@ -291,8 +307,9 @@ export function MaterialsExploded() {
                   <Image
                     src="/images/product/nexo-one-hero.png"
                     alt=""
+                    aria-hidden="true"
                     fill
-                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 900px"
+                    sizes="(max-width: 768px) 76vw, (max-width: 1200px) 58vw, 820px"
                     className="object-contain"
                   />
                 </div>
@@ -300,68 +317,112 @@ export function MaterialsExploded() {
             </div>
           </div>
 
-          {/* Feature callouts */}
-          {callouts.map((callout, index) => {
-            const material = nexoOne.materials[index];
+          <MaterialCallout
+            refCallback={(element) => {
+              calloutRefs.current[0] = element;
+            }}
+            className="top-[31%] left-[5%]"
+            number="01"
+            align="left"
+            material={materials[0]}
+          />
 
-            return (
-              <div
-                key={callout.number}
-                ref={(element) => {
-                  calloutRefs.current[index] = element;
-                }}
-                className={`absolute z-30 w-[11rem] will-change-transform md:w-[14rem] lg:w-[16rem] ${callout.className}`}
-              >
-                <div
-                  className={`flex flex-col ${
-                    callout.align === "right"
-                      ? "items-end text-right"
-                      : "items-start text-left"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    {callout.align === "right" ? (
-                      <span className="h-px w-8 bg-black/25 md:w-14" />
-                    ) : null}
+          <MaterialCallout
+            refCallback={(element) => {
+              calloutRefs.current[1] = element;
+            }}
+            className="top-[31%] right-[5%]"
+            number="02"
+            align="right"
+            material={materials[1]}
+          />
 
-                    <span className="font-display text-3xl leading-none text-black/15">
-                      {callout.number}
-                    </span>
+          <MaterialCallout
+            refCallback={(element) => {
+              calloutRefs.current[2] = element;
+            }}
+            className="bottom-[15%] left-[5%]"
+            number="03"
+            align="left"
+            material={materials[2]}
+          />
 
-                    {callout.align === "left" ? (
-                      <span className="h-px w-8 bg-black/25 md:w-14" />
-                    ) : null}
-                  </div>
+          <MaterialCallout
+            refCallback={(element) => {
+              calloutRefs.current[3] = element;
+            }}
+            className="right-[5%] bottom-[15%]"
+            number="04"
+            align="right"
+            material={materials[3]}
+          />
 
-                  <div className="mt-3 text-[0.62rem] tracking-[0.16em] text-black/35 uppercase">
-                    {callout.eyebrow}
-                  </div>
-
-                  <h3 className="mt-2 text-sm font-semibold tracking-[-0.02em] md:text-base">
-                    {material?.name}
-                  </h3>
-
-                  <p className="mt-2 hidden max-w-[15rem] text-xs leading-5 text-black/45 md:block">
-                    {material?.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Scroll hint */}
-          <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-center">
-            <div className="text-[0.6rem] tracking-[0.18em] text-black/30 uppercase">
+          <div className="absolute bottom-7 left-1/2 z-30 -translate-x-1/2 text-center">
+            <div className="text-[0.5rem] tracking-[0.2em] text-black/25 uppercase">
               Scroll to deconstruct
             </div>
 
-            <div
-              aria-hidden="true"
-              className="mx-auto mt-3 h-8 w-px bg-gradient-to-b from-black/35 to-transparent"
-            />
+            <div className="mx-auto mt-3 h-10 w-px bg-gradient-to-b from-black/25 to-transparent" />
           </div>
         </Container>
       </div>
     </section>
+  );
+}
+
+type MaterialCalloutProps = {
+  refCallback: (element: HTMLDivElement | null) => void;
+  className: string;
+  number: string;
+  align: "left" | "right";
+  material:
+    | {
+        name: string;
+        description: string;
+        position: string;
+      }
+    | undefined;
+};
+
+function MaterialCallout({
+  refCallback,
+  className,
+  number,
+  align,
+  material,
+}: MaterialCalloutProps) {
+  const rightAligned = align === "right";
+
+  return (
+    <div
+      ref={refCallback}
+      className={`absolute z-30 hidden max-w-[15rem] md:block ${className} ${
+        rightAligned ? "text-right" : ""
+      }`}
+    >
+      <div
+        className={`flex items-center gap-4 ${
+          rightAligned ? "justify-end" : ""
+        }`}
+      >
+        {rightAligned ? <div className="h-px w-14 bg-black/20" /> : null}
+
+        <span className="font-display text-4xl text-black/15">{number}</span>
+
+        {!rightAligned ? <div className="h-px w-14 bg-black/20" /> : null}
+      </div>
+
+      <div className="mt-3 text-[0.58rem] tracking-[0.17em] text-black/35 uppercase">
+        {material?.position}
+      </div>
+
+      <h3 className="mt-3 text-lg font-medium tracking-[-0.03em]">
+        {material?.name}
+      </h3>
+
+      <p className="mt-3 text-sm leading-6 text-black/45">
+        {material?.description}
+      </p>
+    </div>
   );
 }
