@@ -4,24 +4,25 @@ import "lenis/dist/lenis.css";
 
 import { ProductExperienceProvider } from "@/components/layout/ProductExperienceProvider";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 
 import "./globals.css";
 
 const geist = Geist({
-  variable: "--font-body",
   subsets: ["latin"],
+  variable: "--font-body",
 });
 
 const bebasNeue = Bebas_Neue({
-  variable: "--font-display",
   subsets: ["latin"],
   weight: "400",
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
   title: "NEXO ONE — Built for Motion",
   description:
-    "A cinematic premium sneaker experience exploring design, performance, and motion.",
+    "A premium digital product experience for the NEXO ONE performance sneaker.",
 };
 
 export default function RootLayout({
@@ -30,9 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geist.variable} ${bebasNeue.variable}`}>
+    <html lang="en" className={`${geist.variable} ${bebasNeue.variable}`}>
+      <body>
         <ProductExperienceProvider>
+          <CustomCursor />
+
           <SmoothScroll>{children}</SmoothScroll>
         </ProductExperienceProvider>
       </body>

@@ -59,6 +59,8 @@ export function Hero() {
   const activeShoe = heroShoes[activeIndex];
   const activeScale = getShoeScale(activeIndex);
 
+  const shoeNameParts = activeShoe.name.split(" ");
+
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
 
@@ -207,7 +209,7 @@ export function Hero() {
             </p>
           </div>
 
-          {/* Hero heading */}
+          {/* Dynamic hero heading */}
           <div
             ref={headingRef}
             className="pointer-events-none absolute inset-x-0 top-[22%] z-10 text-center will-change-transform"
@@ -216,14 +218,43 @@ export function Hero() {
               NEXO ONE
             </div>
 
-            <h1 className="font-display mt-2 text-[clamp(5.5rem,14vw,14rem)] leading-[0.76] tracking-[-0.035em] uppercase">
-              BUILT FOR
-              <br />
-              MOTION
-            </h1>
+            <div className="relative mt-2 min-h-[11rem] md:min-h-[15rem]">
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={activeShoe.id}
+                  initial={{
+                    opacity: 0,
+                    y: direction > 0 ? 45 : -45,
+                    scale: 0.96,
+                    filter: "blur(8px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: direction > 0 ? -45 : 45,
+                    scale: 1.03,
+                    filter: "blur(8px)",
+                  }}
+                  transition={{
+                    duration: 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="font-display absolute inset-x-0 top-0 text-[clamp(5.5rem,14vw,14rem)] leading-[0.76] tracking-[-0.035em] uppercase"
+                >
+                  {shoeNameParts[0]}
+                  <br />
+                  {shoeNameParts.slice(1).join(" ")}
+                </motion.h1>
+              </AnimatePresence>
+            </div>
           </div>
 
-          {/* Single active shoe stage */}
+          {/* Active shoe */}
           <div className="absolute inset-0 z-20 flex items-center justify-center pt-[8vh]">
             <AnimatePresence mode="wait">
               <motion.div
@@ -353,7 +384,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Colorway progress */}
+          {/* Progress */}
           <div className="absolute right-0 bottom-0 left-0 z-40 grid grid-cols-4 gap-1">
             {heroShoes.map((shoe, index) => (
               <div key={shoe.id} className="h-px overflow-hidden bg-white/10">
