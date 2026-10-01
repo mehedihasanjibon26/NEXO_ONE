@@ -435,7 +435,7 @@ export function Hero() {
               style={{ color: activeShoe.muted }}
             >
               Scroll to explore
-              <span className="text-base">â†“</span>
+              <span className="text-base">↓</span>
             </div>
           </div>
 

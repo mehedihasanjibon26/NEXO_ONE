@@ -18,7 +18,7 @@ const designDetails = [
     label: "Sculpted cushioning",
   },
   {
-    value: "360Â°",
+    value: "360°",
     label: "Adaptive traction",
   },
 ];

@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
-const repoName = "NEXO_ONE";
-
-const basePath = isProd ? `/${repoName}` : "";
+// Set BASE_PATH (e.g. "/NEXO_ONE") only when hosting under a sub-path such as GitHub Pages.
+const basePath = (process.env.BASE_PATH ?? "").replace(/\/+$/, "");
 
 const nextConfig: NextConfig = {
   output: "export",

@@ -193,7 +193,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-5 pt-7 text-[0.6rem] tracking-[0.16em] text-white/25 uppercase sm:flex-row sm:items-center sm:justify-between">
-          <div>Â© 2026 NEXO. Concept product experience.</div>
+          <div>© 2026 NEXO. Concept product experience.</div>
 
           <button
             type="button"
@@ -202,7 +202,7 @@ export function Footer() {
           >
             Back to top
             <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-transform duration-300 group-hover:-translate-y-1">
-              â†‘
+              ↑
             </span>
           </button>
         </div>

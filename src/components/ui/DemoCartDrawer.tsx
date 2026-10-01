@@ -77,7 +77,7 @@ export function DemoCartDrawer() {
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-black/15 text-xl"
                 aria-label="Close cart"
               >
-                Ã—
+                ×
               </motion.button>
             </div>
 
@@ -150,7 +150,7 @@ export function DemoCartDrawer() {
                     </span>
 
                     <span className="text-sm">
-                      {selectedSize !== null ? `US ${selectedSize}` : "â€”"}
+                      {selectedSize !== null ? `US ${selectedSize}` : "—"}
                     </span>
                   </div>
 

@@ -64,7 +64,7 @@ export const nexoOne: Product = {
       title: "Adaptive Traction",
       description:
         "Segmented outsole geometry designed to provide confident grip across everyday urban movement.",
-      value: "360Â°",
+      value: "360°",
     },
     {
       id: "comfort",

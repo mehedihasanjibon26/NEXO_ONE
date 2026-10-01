@@ -6,7 +6,7 @@
   },
 
   metadata: {
-    title: "NEXO ONE â€” Built for Motion",
+    title: "NEXO ONE — Built for Motion",
     description:
       "A cinematic premium sneaker experience exploring design, performance, and motion.",
   },
